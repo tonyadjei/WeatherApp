@@ -22,6 +22,15 @@ const updateUI = (data) => {
 			<span>&deg;C</span>
 		</div>
 	`; 
+
+
+	//update the night/day icon images
+	const iconSrc = `img/icons/${weather.WeatherIcon}.svg`;
+	icon.setAttribute('src', iconSrc);
+
+	let iconFile = weather.IsDayTime ? 'img/day.svg':'img/night.svg'; //ternary operator, when you have an if..else statement and you are checking for only one condition
+	time.setAttribute('src', iconFile);
+
 	if(card.classList.contains('d-none')){
 		card.classList.remove('d-none');
 	}
@@ -45,7 +54,7 @@ form.addEventListener('submit', e => {
 
 	// get city value from input, and remove whitespaces
 	const city = form.city.value.trim();
-	form.reset();
+	form.reset(); //clear form input elements
 
 	//update the ui with the new city
 	updateCity(city) 

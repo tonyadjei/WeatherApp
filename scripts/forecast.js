@@ -1,4 +1,4 @@
-const key = "4hqHyZzHUVhwH5m198H7fVpWAZwUWPj7";  
+const key = "ggVEgrgh4AEi7dsCPyutAdyY1HHKzbWZ";  
 //we find information about API endpoints at API references page
 
 
@@ -22,10 +22,4 @@ const getCity = async (city) => {
 	
 	return data[0];
 };
-
-getCity('manchester').then(data => {
-	return getWeather(data.Key);
-}).then(data => {
-})
-.catch(err => console.log(err));
 
