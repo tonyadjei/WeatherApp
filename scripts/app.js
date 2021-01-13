@@ -3,7 +3,7 @@ const card = document.querySelector('.card');
 const details = document.querySelector('.details');
 const time = document.querySelector('img.time');
 const icon = document.querySelector('.icon img');
-
+const forecast = new Forecast();
 
 const updateUI = (data) => {
 
@@ -23,7 +23,6 @@ const updateUI = (data) => {
 		</div>
 	`; 
 
-
 	//update the night/day icon images
 	const iconSrc = `img/icons/${weather.WeatherIcon}.svg`;
 	icon.setAttribute('src', iconSrc);
@@ -36,28 +35,17 @@ const updateUI = (data) => {
 	}
 };
 
-const updateCity = async (city) => { //make a function async if it makes use of other async functions in its body
-
-	const cityDetails = await getCity(city);
-	const weather = await getWeather(cityDetails.Key);
-
-	return { //when you need to return more than one thing, you can return an object
-		//whose properties are those. Now the syntax below is returnin an object alright
-		//but we are using Object Shorthand Notation(which can be used when the property and value of an object have the same name, in which case we remove the property name, including the ':', remaining only the value name)
-		cityDetails, weather };
-};
-
 
 form.addEventListener('submit', e => {
 	//prevent default action
 	e.preventDefault();
 
-	// get city value from input, and remove whitespaces
+	// get city value from input, and remove whitespaces with .trim() method
 	const city = form.city.value.trim();
 	form.reset(); //clear form input elements
 
 	//update the ui with the new city
-	updateCity(city) 
+	forecast.updateCity(city) 
 	.then(data => updateUI(data))
 	.catch(err => console.log(err));
 
@@ -66,7 +54,7 @@ form.addEventListener('submit', e => {
 });
 
 if(localStorage.getItem('city')){
-	updateCity(localStorage.getItem('city'))
+	forecast.updateCity(localStorage.getItem('city'))
 		.then(data => updateUI(data))
 		.catch(err => console.log(err));
 }  
